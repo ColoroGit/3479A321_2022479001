@@ -64,6 +64,8 @@ flutter:
   assets:
     - assets/icons/o_icon.svg
     - assets/icons/x_icon.svg
+    - assets/icons/victory_icon.svg
+    - assets/icons/game_over_icon.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

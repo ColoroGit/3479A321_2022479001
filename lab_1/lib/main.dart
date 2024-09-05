@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'pages/my_home_page.dart';
+import 'pages/About.dart';
+import 'pages/Details.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.pacifico(),
         ),
       ),
-      home: const MyHomePage(title: 'Demo Flutter Página de Inicio'),
+      home: const MyHomePage(title: 'Home'),
     );
   }
 }
