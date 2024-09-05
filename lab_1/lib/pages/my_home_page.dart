@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
-import 'Details.dart';
+import 'details.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -89,11 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
     logger.d("Logger is working in My Home Page!");
 
     return Scaffold(
-      // persistentFooterButtons: [
-      //   footerButton(_incrementCounter, const Icon(Icons.add)),
-      //   footerButton(_decrementCounter, const Icon(Icons.remove)),
-      //   footerButton(_resetCounter, const Icon(Icons.refresh))
-      // ],
+      persistentFooterButtons: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Details()));
+            },
+            child: const Icon(Icons.details))
+      ],
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Card(
           elevation: 20,
-          margin: EdgeInsets.all(25),
+          margin: const EdgeInsets.all(25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -112,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
               Text(
-                '$_message',
+                _message,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),

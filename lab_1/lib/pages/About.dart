@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class CardExample extends StatelessWidget {
-  const CardExample({super.key});
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.album),
-              title: Text('The Enchanted Nightingale'),
-              subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+    return Scaffold(
+      persistentFooterButtons: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.keyboard_return))
+      ],
+      body: Center(
+        child: Card(
+          elevation: 20,
+          margin: const EdgeInsets.all(25),
+          child: ListTile(
+            leading: SvgPicture.asset(
+              'assets/icons/x_icon.svg',
+              height: 75,
+              colorFilter:
+                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: const Text('BUY TICKETS'),
-                  onPressed: () {/* ... */},
-                ),
-                const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('LISTEN'),
-                  onPressed: () {/* ... */},
-                ),
-                const SizedBox(width: 8),
-              ],
-            ),
-          ],
+            title: Text('Tomás Concha',
+                style: Theme.of(context).textTheme.headlineMedium),
+            subtitle: Text(
+                'Hola, soy el creador de esta app, estudio IDVRV en la Universidad de Talca, y quiero que me respondas una pregunta...\n¿Qué te gusta más? ¿Lo dulce o lo salado?',
+                style: Theme.of(context).textTheme.bodyMedium),
+          ),
         ),
       ),
     );
