@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab_1/pages/child.dart';
 import 'package:logger/logger.dart';
 import 'details.dart';
 
@@ -9,12 +10,19 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    var logger = Logger();
+    logger.d("create state");
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var logger = Logger();
+
   int _counter = 0;
   String _message = 'Presiona los botones para jugar';
+  // ignore: unused_field
   String _displayedIcon = 'assets/icons/o_icon.svg';
 
   String oIcon = 'assets/icons/o_icon.svg';
@@ -83,16 +91,61 @@ class _MyHomePageState extends State<MyHomePage> {
     return ElevatedButton(onPressed: () => action!(), child: icon);
   }
 
+  _MyHomePageState() {
+    logger.d("constructor, mounted: $mounted");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    logger.d('initState, mounted: $mounted');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    logger.d('didChangeDependencies, mounted: $mounted');
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    logger.d('setState');
+    super.setState(fn);
+  }
+
+  @override
+  void didUpdateWidget(covariant MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    logger.d('didUpdateWidget, mounted: $mounted');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    logger.d('deactivate, mounted: $mounted');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    logger.d('dispose, mounted: $mounted');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    logger.d('reassemble, mounted: $mounted');
+  }
+
   @override
   Widget build(BuildContext context) {
-    var logger = Logger();
-    logger.d("Logger is working in My Home Page!");
+    logger.d("build method, mounted: $mounted");
 
     return Scaffold(
       persistentFooterButtons: [
         ElevatedButton(
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const Details()));
             },
             child: const Icon(Icons.details))
@@ -103,17 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Card(
-          elevation: 20,
+          elevation: 50,
           margin: const EdgeInsets.all(25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              SvgPicture.asset(
-                _displayedIcon,
-                height: 75,
-                colorFilter:
-                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-              ),
+              Child(text: "HOLI"),
               Text(
                 _message,
                 style: Theme.of(context).textTheme.headlineMedium,
