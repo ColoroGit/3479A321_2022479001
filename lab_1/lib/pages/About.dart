@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class About extends StatelessWidget {
+class About extends StatefulWidget {
   const About({super.key});
 
   @override
+  State<StatefulWidget> createState() => _AboutState();
+}
+
+class _AboutState extends State<About> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(Icons.keyboard_return))
-      ],
+      // persistentFooterButtons: [
+      //   ElevatedButton(
+      //       onPressed: () {
+      //         Navigator.pop(context);
+      //       },
+      //       child: const Icon(Icons.keyboard_return))
+      // ],
       body: Center(
         child: Card(
           elevation: 20,

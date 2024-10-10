@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab_1/pages/About.dart';
+import 'package:lab_1/pages/Audit.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/pages/child.dart';
 import 'package:logger/logger.dart';
@@ -142,17 +144,46 @@ class _MyHomePageState extends State<MyHomePage> {
     logger.d("build method, mounted: $mounted");
 
     return Scaffold(
-      persistentFooterButtons: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Details()));
-            },
-            child: const Icon(Icons.details))
-      ],
+      // persistentFooterButtons: [
+      //   ElevatedButton(
+      //       onPressed: () {
+      //         Navigator.pushReplacement(context,
+      //             MaterialPageRoute(builder: (context) => const Details()));
+      //       },
+      //       child: const Icon(Icons.details))
+      // ],
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(child: Text('Drawer')),
+            ListTile(
+              title: const Text('About'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const About()));
+              },
+            ),
+            ListTile(
+              title: const Text('Details'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Details()));
+              },
+            ),
+            ListTile(
+              title: const Text('Audit'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Audit()));
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Card(

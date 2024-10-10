@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'about.dart';
+// import 'about.dart';
 
-class Details extends StatelessWidget {
+class Details extends StatefulWidget {
   const Details({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +29,19 @@ class Details extends StatelessWidget {
           ),
         ),
       ),
-      persistentFooterButtons: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(Icons.home)),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const About()));
-            },
-            child: const Icon(Icons.security_update_warning))
-      ],
+      // persistentFooterButtons: [
+      //   ElevatedButton(
+      //       onPressed: () {
+      //         Navigator.pop(context);
+      //       },
+      //       child: const Icon(Icons.home)),
+      //   ElevatedButton(
+      //       onPressed: () {
+      //         Navigator.push(context,
+      //             MaterialPageRoute(builder: (context) => const About()));
+      //       },
+      //       child: const Icon(Icons.security_update_warning))
+      // ],
     );
   }
 }
