@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab_1/models/provider.dart';
 import 'package:lab_1/pages/About.dart';
 import 'package:lab_1/pages/Audit.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/pages/child.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'details.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +15,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
+  // ignore: no_logic_in_create_state
   State<MyHomePage> createState() {
     var logger = Logger();
     logger.d("create state");
@@ -21,77 +25,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var logger = Logger();
-
-  int _counter = 0;
-  String _message = 'Presiona los botones para jugar';
-  // ignore: unused_field
-  String _displayedIcon = 'assets/icons/o_icon.svg';
-
-  String oIcon = 'assets/icons/o_icon.svg';
-  String winIcon = 'assets/icons/victory_icon.svg';
-  String gameOverIcon = 'assets/icons/game_over_icon.svg';
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-
-    if (_counter == 5) {
-      showGameOverDisplay();
-    }
-
-    if (_counter == 10) {
-      showVictoryDisplay();
-    }
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      if (_counter == 0) return;
-      _counter--;
-    });
-
-    if (_counter == 5) {
-      showGameOverDisplay();
-    }
-
-    if (_counter == 10) {
-      showVictoryDisplay();
-    }
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-    });
-
-    showNormalDisplay();
-  }
-
-  void showVictoryDisplay() {
-    setState(() {
-      _message = 'Felicidades, has Ganado!!!';
-      _displayedIcon = winIcon;
-    });
-  }
-
-  void showGameOverDisplay() {
-    setState(() {
-      _message = 'Has Perdido\n(pista: sigue presionando el botón)';
-      _displayedIcon = gameOverIcon;
-    });
-  }
-
-  void showNormalDisplay() {
-    setState(() {
-      _message = 'Presiona los botones para jugar';
-      _displayedIcon = oIcon;
-    });
-  }
-
-  Widget footerButton(Function? action, Icon icon) {
-    return ElevatedButton(onPressed: () => action!(), child: icon);
-  }
 
   _MyHomePageState() {
     logger.d("constructor, mounted: $mounted");
@@ -142,16 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     logger.d("build method, mounted: $mounted");
+    final data = Provider.of<AppData>(context);
 
     return Scaffold(
-      // persistentFooterButtons: [
-      //   ElevatedButton(
-      //       onPressed: () {
-      //         Navigator.pushReplacement(context,
-      //             MaterialPageRoute(builder: (context) => const Details()));
-      //       },
-      //       child: const Icon(Icons.details))
-      // ],
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -160,10 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(child: Text('Drawer')),
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+              child: Text(
+                'Drawer',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
             ListTile(
               title: const Text('About'),
               onTap: () {
+                data.addToAudits("Acceso a pantalla About");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const About()));
               },
@@ -171,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Details'),
               onTap: () {
+                data.addToAudits("Acceso a pantalla Details");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Details()));
               },
@@ -178,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Audit'),
               onTap: () {
+                data.addToAudits("Acceso a pantalla Audit");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Audit()));
               },
@@ -192,33 +129,59 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              // ignore: prefer_const_constructors
               Child(text: "HOLI"),
+              SvgPicture.asset(
+                data.displayedIcon,
+                height: 75,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ),
               Text(
-                _message,
+                data.message,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               Text(
-                '$_counter',
+                '${data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  footerButton(_incrementCounter, const Icon(Icons.add)),
-                  footerButton(_decrementCounter, const Icon(Icons.remove)),
-                  footerButton(_resetCounter, const Icon(Icons.refresh))
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        data.addToAudits("Contador Incrementado");
+                        data.incrementCounter;
+                      });
+                    },
+                    child: const Icon(Icons.add),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        data.decrementCounter;
+                        data.addToAudits("Contador Decrementado");
+                      });
+                    },
+                    child: const Icon(Icons.remove),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        data.addToAudits("Contador Reiniciado");
+                        data.resetCounter;
+                      });
+                    },
+                    child: const Icon(Icons.refresh),
+                  ),
                 ],
               )
             ],
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _resetCounter,
-      //   tooltip: 'Reset',
-      //   child: const Icon(Icons.refresh),
-      // ),
     );
   }
 }

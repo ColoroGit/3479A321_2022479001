@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab_1/models/provider.dart';
+import 'package:provider/provider.dart';
 
 class Audit extends StatefulWidget {
   const Audit({super.key});
@@ -11,16 +13,13 @@ class _AuditState extends State<Audit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // persistentFooterButtons: [
-      //   ElevatedButton(
-      //       onPressed: () {
-      //         Navigator.pop(context);
-      //       },
-      //       child: const Icon(Icons.keyboard_return))
-      // ],
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Audit'),
+      ),
       body: Center(
         child: ListView(
-          children: [],
+          children: context.read<AppData>().showAudit(),
         ),
       ),
     );

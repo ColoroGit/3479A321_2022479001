@@ -12,13 +12,10 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // persistentFooterButtons: [
-      //   ElevatedButton(
-      //       onPressed: () {
-      //         Navigator.pop(context);
-      //       },
-      //       child: const Icon(Icons.keyboard_return))
-      // ],
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('About'),
+      ),
       body: Center(
         child: Card(
           elevation: 20,
