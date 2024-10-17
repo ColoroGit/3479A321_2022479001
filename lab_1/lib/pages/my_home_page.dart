@@ -143,19 +143,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                '${data.counter}',
+                 '${context.read<AppData>().counter}', 
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        data.addToAudits("Contador Incrementado");
-                        data.incrementCounter;
-                      });
-                    },
+                    onPressed: () {context.read<AppData>().incrementCounter();},
+                    // onPressed: () {
+                    //   setState(() {
+                    //     data.addToAudits("Contador Incrementado");
+                    //     context.read<AppData>().incrementCounter();
+                    //   });
+                    // },
                     child: const Icon(Icons.add),
                   ),
                   ElevatedButton(
