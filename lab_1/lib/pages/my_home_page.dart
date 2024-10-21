@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab_1/models/audit_class.dart';
 import 'package:lab_1/models/provider.dart';
 import 'package:lab_1/pages/About.dart';
 import 'package:lab_1/pages/Audit.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/pages/child.dart';
+import 'package:lab_1/pages/preferences.dart';
+import 'package:lab_1/utils/DatabaseHelper.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'details.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -25,6 +29,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var logger = Logger();
+  DatabaseHelper db = DatabaseHelper.instance;
+
+  var _username = "Usuario";
+  var _counter = 0;
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = prefs.getString('username') ?? '';
+      _counter = prefs.getInt('counter') ?? 0;
+    });
+  }
 
   _MyHomePageState() {
     logger.d("constructor, mounted: $mounted");
@@ -34,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     logger.d('initState, mounted: $mounted');
+    _loadPreferences();
   }
 
   @override
@@ -98,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('About'),
               onTap: () {
-                data.addToAudits("Acceso a pantalla About");
+                db.create(AuditClass(audit: "Acceso a pantalla About"));
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const About()));
               },
@@ -106,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Details'),
               onTap: () {
-                data.addToAudits("Acceso a pantalla Details");
+                db.create(AuditClass(audit: "Acceso a pantalla Details"));
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Details()));
               },
@@ -114,9 +131,21 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Audit'),
               onTap: () {
-                data.addToAudits("Acceso a pantalla Audit");
+                db.create(AuditClass(audit: "Acceso a pantalla Audit"));
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Audit()));
+              },
+            ),
+            ListTile(
+              title: const Text('Preferences'),
+              onTap: () {
+                db.create(AuditClass(audit: "Acceso a pantalla Preferences"));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Preferences())).then((_) {
+                  _loadPreferences();
+                });
               },
             ),
           ],
@@ -130,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               // ignore: prefer_const_constructors
-              Child(text: "HOLI"),
+              Child(text: "Bienvenido $_username"),
               SvgPicture.asset(
                 data.displayedIcon,
                 height: 75,
@@ -143,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                '${data.counter}',
+                '$_counter',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
@@ -152,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        data.addToAudits("Contador Incrementado");
+                        db.create(AuditClass(audit: "Contador Incrementado"));
                         data.incrementCounter;
                       });
                     },
@@ -161,8 +190,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
+                        db.create(AuditClass(audit: "Contador Decrementado"));
                         data.decrementCounter;
-                        data.addToAudits("Contador Decrementado");
                       });
                     },
                     child: const Icon(Icons.remove),
@@ -170,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        data.addToAudits("Contador Reiniciado");
+                        db.create(AuditClass(audit: "Contador Reiniciado"));
                         data.resetCounter;
                       });
                     },

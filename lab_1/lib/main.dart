@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'pages/my_home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

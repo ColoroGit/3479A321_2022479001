@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lab_1/models/provider.dart';
-import 'package:provider/provider.dart';
+import 'package:lab_1/models/audit_class.dart';
+import 'package:lab_1/utils/DatabaseHelper.dart';
 
 class Audit extends StatefulWidget {
   const Audit({super.key});
@@ -10,6 +10,33 @@ class Audit extends StatefulWidget {
 }
 
 class _AuditState extends State<Audit> {
+  DatabaseHelper db = DatabaseHelper.instance;
+  List<AuditClass> audits = [];
+
+  refreshNotes() {
+    db.readAll().then((value) {
+      setState(() {
+        audits = value;
+      });
+    });
+  }
+
+  readAudits() {
+    final auditsTexts = <Widget>[];
+
+    for (int i = 0; i < audits.length; i++) {
+      auditsTexts.add(Text("${audits[i].audit}"));
+    }
+
+    return auditsTexts;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    refreshNotes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +46,7 @@ class _AuditState extends State<Audit> {
       ),
       body: Center(
         child: ListView(
-          children: context.read<AppData>().showAudit(),
+          children: readAudits(),
         ),
       ),
     );
