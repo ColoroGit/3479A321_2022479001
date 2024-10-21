@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab_1/models/audit_class.dart';
+import 'package:lab_1/utils/DatabaseHelper.dart';
 // import 'about.dart';
 
 class Details extends StatefulWidget {
@@ -9,6 +11,8 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  DatabaseHelper db = DatabaseHelper.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,19 +37,12 @@ class _DetailsState extends State<Details> {
           ),
         ),
       ),
-      // persistentFooterButtons: [
-      //   ElevatedButton(
-      //       onPressed: () {
-      //         Navigator.pop(context);
-      //       },
-      //       child: const Icon(Icons.home)),
-      //   ElevatedButton(
-      //       onPressed: () {
-      //         Navigator.push(context,
-      //             MaterialPageRoute(builder: (context) => const About()));
-      //       },
-      //       child: const Icon(Icons.security_update_warning))
-      // ],
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.thumb_up_alt),
+        onPressed: () {
+          db.create(AuditClass(audit: "Al usuario le gustó el juego"));
+        },
+      ),
     );
   }
 }

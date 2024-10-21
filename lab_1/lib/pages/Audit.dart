@@ -25,7 +25,11 @@ class _AuditState extends State<Audit> {
     final auditsTexts = <Widget>[];
 
     for (int i = 0; i < audits.length; i++) {
-      auditsTexts.add(Text("${audits[i].audit}"));
+      auditsTexts.add(Text(
+        "${audits[i].audit}",
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ));
     }
 
     return auditsTexts;
@@ -48,6 +52,14 @@ class _AuditState extends State<Audit> {
         child: ListView(
           children: readAudits(),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          db.deleteAll();
+          refreshNotes();
+          readAudits();
+        },
+        child: const Icon(Icons.delete_forever),
       ),
     );
   }

@@ -64,4 +64,9 @@ class DatabaseHelper {
     final result = await db.query("Audits", orderBy: orderBy);
     return result.map((json) => AuditClass.fromJson(json)).toList();
   }
+
+  Future<int> deleteAll() async {
+    final db = await instance.database;
+    return await db.delete('Audits');
+  }
 }
