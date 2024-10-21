@@ -151,28 +151,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        data.addToAudits("Contador Incrementado");
-                        data.incrementCounter;
-                      });
+                      data.addToAudits("Contador Incrementado");
+                      data.incrementCounter;
                     },
                     child: const Icon(Icons.add),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        data.decrementCounter;
-                        data.addToAudits("Contador Decrementado");
-                      });
+                      data.addToAudits("Contador Decrementado");
+                      data.decrementCounter;
                     },
                     child: const Icon(Icons.remove),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        data.addToAudits("Contador Reiniciado");
-                        data.resetCounter;
-                      });
+                      data.addToAudits("Contador Reiniciado");
+                      data.resetCounter;
                     },
                     child: const Icon(Icons.refresh),
                   ),

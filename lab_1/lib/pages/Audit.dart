@@ -10,6 +10,16 @@ class Audit extends StatefulWidget {
 }
 
 class _AuditState extends State<Audit> {
+  List<Widget> showAudit() {
+    var texts = <Widget>[];
+
+    for (int i = 0; i < context.read<AppData>().actions.length; i++) {
+      texts.add(Text(context.read<AppData>().actions[i]));
+    }
+
+    return texts;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +29,7 @@ class _AuditState extends State<Audit> {
       ),
       body: Center(
         child: ListView(
-          children: context.read<AppData>().showAudit(),
+          children: showAudit(),
         ),
       ),
     );
