@@ -1,9 +1,11 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/models/audit_class.dart';
 import 'package:lab_1/models/provider.dart';
 import 'package:lab_1/pages/About.dart';
 import 'package:lab_1/pages/Audit.dart';
+import 'package:lab_1/pages/camera.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/pages/child.dart';
 import 'package:lab_1/pages/preferences.dart';
@@ -14,9 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'details.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.camera});
 
   final String title;
+  final CameraDescription camera;
 
   @override
   // ignore: no_logic_in_create_state
@@ -144,6 +147,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const Preferences())).then((_) {
+                  _loadPreferences();
+                });
+              },
+            ),
+            ListTile(
+              title: const Text('Camera'),
+              onTap: () {
+                db.create(AuditClass(audit: "Acceso a Camara"));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Camera(camera: widget.camera))).then((_) {
                   _loadPreferences();
                 });
               },

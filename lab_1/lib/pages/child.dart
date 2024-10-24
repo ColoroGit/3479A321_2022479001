@@ -9,6 +9,7 @@ class Child extends StatefulWidget {
 
   final String text;
   @override
+  // ignore: no_logic_in_create_state
   State<Child> createState() {
     var logger = Logger();
     logger.i('create child state');
