@@ -143,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                 '${context.read<AppData>().counter}', 
+                 //'${context.read<AppData>().counter}', 
+                 '${data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
