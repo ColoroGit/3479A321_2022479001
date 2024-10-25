@@ -151,7 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-<<<<<<< HEAD
                     onPressed: () {context.read<AppData>().incrementCounter();},
                     // onPressed: () {
                     //   setState(() {
@@ -159,12 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     //     context.read<AppData>().incrementCounter();
                     //   });
                     // },
-=======
-                    onPressed: () {
-                      data.addToAudits("Contador Incrementado");
-                      data.incrementCounter;
-                    },
->>>>>>> 88b929e207856b6bbbf7b9c23a5e7884490f4be3
                     child: const Icon(Icons.add),
                   ),
                   ElevatedButton(
