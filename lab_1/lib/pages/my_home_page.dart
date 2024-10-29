@@ -143,15 +143,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                 //'${context.read<AppData>().counter}', 
-                 '${data.counter}',
+                //'${context.read<AppData>().counter}',
+                '${data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {context.read<AppData>().incrementCounter();},
+                    onPressed: () {
+                      data.addToAudits("Contador Incrementado");
+                      context.read<AppData>().incrementCounter();
+                    },
                     // onPressed: () {
                     //   setState(() {
                     //     data.addToAudits("Contador Incrementado");
@@ -163,14 +166,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       data.addToAudits("Contador Decrementado");
-                      data.decrementCounter;
+                      context.read<AppData>().decrementCounter();
                     },
                     child: const Icon(Icons.remove),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       data.addToAudits("Contador Reiniciado");
-                      data.resetCounter;
+                      context.read<AppData>().resetCounter();
                     },
                     child: const Icon(Icons.refresh),
                   ),
