@@ -8,6 +8,7 @@ import 'package:lab_1/pages/Audit.dart';
 import 'package:lab_1/pages/camera.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_1/pages/child.dart';
+import 'package:lab_1/pages/hollydays.dart';
 import 'package:lab_1/pages/preferences.dart';
 import 'package:lab_1/utils/DatabaseHelper.dart';
 import 'package:logger/logger.dart';
@@ -158,10 +159,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            Camera(camera: widget.camera))).then((_) {
-                  _loadPreferences();
-                });
+                        builder: (context) => Camera(camera: widget.camera)));
+              },
+            ),
+            ListTile(
+              title: const Text('Hollydays'),
+              onTap: () {
+                db.create(AuditClass(audit: "Acceso a Hollydays"));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Hollydays()));
               },
             ),
           ],
