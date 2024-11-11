@@ -49,7 +49,6 @@ class _CameraState extends State<Camera> {
           }
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           try {
