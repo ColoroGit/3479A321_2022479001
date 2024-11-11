@@ -96,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     logger.d("build method, mounted: $mounted");
     final data = Provider.of<AppData>(context);
+    data.counter = _counter;
 
     return Scaffold(
       appBar: AppBar(
@@ -188,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                '$_counter',
+                '${data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Row(
@@ -196,28 +197,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        db.create(AuditClass(audit: "Contador Incrementado"));
-                        data.incrementCounter;
-                      });
+                      db.create(AuditClass(audit: "Contador Incrementado"));
+                      data.incrementCounter();
                     },
                     child: const Icon(Icons.add),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        db.create(AuditClass(audit: "Contador Decrementado"));
-                        data.decrementCounter;
-                      });
+                      db.create(AuditClass(audit: "Contador Decrementado"));
+                      data.decrementCounter();
                     },
                     child: const Icon(Icons.remove),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        db.create(AuditClass(audit: "Contador Reiniciado"));
-                        data.resetCounter;
-                      });
+                      db.create(AuditClass(audit: "Contador Reiniciado"));
+                      data.resetCounter();
                     },
                     child: const Icon(Icons.refresh),
                   ),
