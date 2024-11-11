@@ -189,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Text(
+                //'${context.read<AppData>().counter}',
                 '${data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
@@ -200,6 +201,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       db.create(AuditClass(audit: "Contador Incrementado"));
                       data.incrementCounter();
                     },
+                    // onPressed: () {
+                    //   setState(() {
+                    //     data.addToAudits("Contador Incrementado");
+                    //     context.read<AppData>().incrementCounter();
+                    //   });
+                    // },
                     child: const Icon(Icons.add),
                   ),
                   ElevatedButton(
